@@ -133,7 +133,7 @@ export default function RootLayout({
                 Profile
               </Link>
               <Link
-                href="/settings"
+                href="/chat"
                 className="flex items-center px-4 py-4 text-gray-800 hover:bg-gray-50 rounded-lg transition-colors duration-200 font-medium text-base"
                 onClick={() => setMenuOpen(false)}
               >
@@ -141,7 +141,7 @@ export default function RootLayout({
               </Link>
               
               <Link
-                href="/help"
+                href="/chat"
                 className="flex items-center px-4 py-4 text-gray-800 hover:bg-gray-50 rounded-lg transition-colors duration-200 font-medium text-base"
                 onClick={() => setMenuOpen(false)}
               >
@@ -149,7 +149,7 @@ export default function RootLayout({
               </Link>
               
               <Link
-                href="/about"
+                href="/chat"
                 className="flex items-center px-4 py-4 text-gray-800 hover:bg-gray-50 rounded-lg transition-colors duration-200 font-medium text-base"
                 onClick={() => setMenuOpen(false)}
               >
