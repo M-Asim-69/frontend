@@ -179,22 +179,25 @@ export default function ChatWindow({ contact }: { contact: Contact }) {
       <div className="absolute inset-0 z-0 bg-blue-900/40 backdrop-blur-sm" />
       {/* Chat content */}
       <div className="relative z-10 flex flex-col h-full w-full">
-        {/* Header */}
-        <div className="h-16 flex items-center px-6 border-b border-blue-100 bg-white/80 shadow-sm">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full flex items-center justify-center border border-blue-300 bg-blue-50 text-blue-700 font-bold text-lg select-none overflow-hidden">
-              {user.username?.charAt(0).toUpperCase() || 'U'}
+        {/* Header - fixed */}
+        <div className="h-16 md:h-20 flex items-center px-3 md:px-6 border-b border-blue-100 bg-white/90 shadow-sm sticky top-0 z-20">
+          <div className="flex items-center space-x-2 md:space-x-3 w-full justify-between">
+            <div className="flex items-center gap-2 md:gap-3">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border border-blue-300 bg-blue-50 text-blue-700 font-bold text-base md:text-lg select-none overflow-hidden">
+                {contact.username?.charAt(0).toUpperCase() || 'U'}
+              </div>
+              <div>
+                <h2 className="font-semibold text-blue-900 text-base md:text-lg leading-tight">
+                  {contact.username}
+                </h2>
+                <div className="text-xs text-blue-400 font-medium md:mt-1 mt-0.5">Chatting as {user.username || 'You'}</div>
+              </div>
             </div>
-            <div>
-              <h2 className="font-semibold text-blue-900 text-lg">
-                {user.username}
-              </h2>
-            </div>
+            {/* Optionally, add more header actions here */}
           </div>
         </div>
-
-        {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto p-4">
+        {/* Messages Container - scrollable and sticky between header and input */}
+        <div className="flex-1 overflow-y-auto p-2 md:p-4" style={{ minHeight: 0 }}>
           {loading && (
             <div className="flex items-center justify-center h-32">
               <div className="flex items-center space-x-2 text-blue-600">
@@ -359,9 +362,8 @@ export default function ChatWindow({ contact }: { contact: Contact }) {
             <div ref={messagesEndRef} />
           </div>
         </div>
-
-        {/* Input Form */}
-        <div className="p-4 bg-white border-t border-slate-200 shadow-sm">
+        {/* Input Form - fixed at bottom */}
+        <div className="p-2 md:p-4 bg-white border-t border-slate-200 shadow-sm sticky bottom-0 z-20">
           {editingId !== null && (
             <div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
               <div className="flex items-center space-x-2 text-blue-700 text-sm">
@@ -382,12 +384,11 @@ export default function ChatWindow({ contact }: { contact: Contact }) {
               </div>
             </div>
           )}
-
-          <form onSubmit={handleSend} className="flex gap-3">
+          <form onSubmit={handleSend} className="flex gap-2 md:gap-3 items-center">
             <div className="flex-1 relative">
               <input
                 type="text"
-                className="w-full px-4 py-3 border border-slate-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-50 text-gray-900 placeholder-slate-400 transition-all duration-200"
+                className="w-full px-4 py-3 border border-slate-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-50 text-gray-900 placeholder-slate-400 transition-all duration-200 text-base md:text-lg shadow-sm"
                 placeholder={
                   editingId !== null
                     ? 'Edit your message...'
@@ -396,9 +397,9 @@ export default function ChatWindow({ contact }: { contact: Contact }) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 disabled={sending}
+                autoFocus
               />
             </div>
-
             {editingId !== null ? (
               <div className="flex gap-2">
                 <button
@@ -429,8 +430,9 @@ export default function ChatWindow({ contact }: { contact: Contact }) {
             ) : (
               <button
                 type="submit"
-                className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium flex items-center space-x-2"
+                className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium flex items-center space-x-2 shadow-md"
                 disabled={sending || !input.trim()}
+                aria-label="Send message"
               >
                 {sending ? (
                   <>
@@ -439,9 +441,8 @@ export default function ChatWindow({ contact }: { contact: Contact }) {
                   </>
                 ) : (
                   <>
-                    <span>Send</span>
                     <svg
-                      className="w-4 h-4"
+                      className="w-5 h-5 md:w-6 md:h-6"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

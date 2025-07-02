@@ -113,11 +113,11 @@ export default function ContactsSidebar({
   };
 
   return (
-    <div className="flex-1 overflow-y-auto bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200 rounded-xl shadow-lg p-4 border border-blue-100">
-      <div className="font-bold text-lg mb-4 text-gray-800">Contacts</div>
+    <div className="flex-1 overflow-y-auto bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200 rounded-xl shadow-lg p-2 md:p-4 border border-blue-100 w-full md:w-auto">
+      <div className="font-bold text-base md:text-lg mb-2 md:mb-4 text-gray-800">Contacts</div>
       {/* Pending Requests Section */}
-      <div className="mb-6">
-        <div className="font-semibold text-md text-blue-800 mb-2 flex items-center gap-2">
+      <div className="mb-4 md:mb-6">
+        <div className="font-semibold text-sm md:text-md text-blue-800 mb-1 md:mb-2 flex items-center gap-2">
           Pending Requests
           {pendingLoading && (
             <span className="ml-2 text-xs text-blue-400">Loading...</span>
@@ -133,10 +133,10 @@ export default function ContactsSidebar({
           {pendingRequests.map((req) => (
             <li
               key={req.id}
-              className="flex flex-col m-auto items-center gap-3 py-2 px-3 rounded-lg bg-blue-50 mb-2 border border-blue-100"
+              className="flex flex-col items-center gap-2 md:gap-3 py-2 px-2 md:px-3 rounded-lg bg-blue-50 mb-2 border border-blue-100"
             >
               <div className="flex flex-row gap-2">
-                <div className="w-9 h-9 rounded-full flex items-center justify-center border border-blue-300 bg-blue-50 text-blue-700 font-bold text-lg select-none overflow-hidden">
+                <div className="w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center border border-blue-300 bg-blue-50 text-blue-700 font-bold text-base md:text-lg select-none overflow-hidden">
                   {req.profileImage ? (
                     <Image
                       src={req.profileImage}
@@ -190,33 +190,41 @@ export default function ContactsSidebar({
         {contacts.map((contact) => (
           <li
             key={contact.id}
-            className="py-2 px-3 rounded-lg hover:bg-blue-50 cursor-pointer flex items-center gap-3"
+            className="py-2 px-3 rounded-lg hover:bg-blue-100 cursor-pointer flex items-center gap-3 transition group"
             onClick={() => onSelectContact(contact)}
           >
-            <div className="w-10 h-10 rounded-full flex items-center justify-center border border-blue-300 bg-blue-50 text-blue-700 font-bold text-lg select-none overflow-hidden">
-              {contact.profileImage ? (
-                <Image
-                  src={contact.profileImage}
-                  alt={contact.username}
-                  className="w-full h-full object-cover rounded-full"
-                />
-              ) : (
-                contact.username?.charAt(0).toUpperCase() || '?'
-              )}
+            <div className="relative">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center border border-blue-300 bg-blue-50 text-blue-700 font-bold text-lg select-none overflow-hidden group-hover:scale-105 transition-transform">
+                {contact.profileImage ? (
+                  <Image
+                    src={contact.profileImage}
+                    alt={contact.username}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  contact.username?.charAt(0).toUpperCase() || '?'
+                )}
+              </div>
+              {/* Status dot (example: online) */}
+              <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full" />
             </div>
-            <div>
-              <div className="font-medium text-blue-900">
+            <div className="flex-1 min-w-0">
+              <div className="font-medium text-blue-900 truncate">
                 {contact.username}
               </div>
             </div>
           </li>
         ))}
       </ul>
+      {/* Floating Action Button for Add Contact */}
       <button
-        className="mt-4 w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        className="fixed md:static bottom-6 right-6 md:mt-4 md:w-full flex items-center justify-center md:justify-center py-4 md:py-2 px-4 md:px-0 bg-blue-600 text-white rounded-full md:rounded-lg shadow-lg hover:bg-blue-700 transition z-50 text-2xl md:text-base gap-2 md:gap-0"
         onClick={onAddContact}
+        aria-label="Add Contact"
+        style={{ minWidth: '48px', minHeight: '48px' }}
       >
-        Add Contact
+        <span className="material-icons md:hidden">add</span>
+        <span className="hidden md:inline">+ Add Contact</span>
       </button>
     </div>
   );

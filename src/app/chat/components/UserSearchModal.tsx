@@ -62,27 +62,27 @@ export default function UserSearchModal({
   };
 
   return (
-    <div className="fixed inset-0 rounded-4xl z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative border border-blue-200 animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white rounded-lg shadow-lg p-3 md:p-6 w-full max-w-xs md:max-w-md relative border border-blue-200 animate-fade-in mx-2">
         <button
-          className="absolute top-2 right-2 text-blue-500 hover:text-blue-700 text-2xl"
+          className="absolute top-2 right-2 text-blue-500 hover:text-blue-700 text-xl md:text-2xl"
           onClick={onClose}
           aria-label="Close"
         >
           &times;
         </button>
-        <h2 className="text-lg font-bold mb-4 text-blue-700">Add Contact</h2>
-        <form onSubmit={handleSearch} className="flex mb-4">
+        <h2 className="text-base md:text-lg font-bold mb-2 md:mb-4 text-blue-700">Add Contact</h2>
+        <form onSubmit={handleSearch} className="flex flex-col md:flex-row mb-2 md:mb-4 gap-2 md:gap-0">
           <input
             type="text"
             placeholder="Search users..."
-            className="w-full px-4 py-2 border border-blue-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50 text-blue-900 placeholder-blue-400"
+            className="w-full px-3 md:px-4 py-2 border border-blue-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50 text-blue-900 placeholder-blue-400 text-sm md:text-base"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-all font-bold"
+            className="px-3 md:px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-all font-bold text-sm md:text-base"
           >
             Search
           </button>
