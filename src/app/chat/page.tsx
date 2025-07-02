@@ -4,27 +4,6 @@ import ContactsSidebar from './components/ContactsSidebar';
 import ChatWindow from './components/ChatWindow';
 import type { Contact } from './components/ContactsSidebar';
 import UserSearchModal from './components/UserSearchModal';
-import Cookies from 'js-cookie';
-import { io, Socket } from 'socket.io-client';
-
-const SOCKET_URL =
-  process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4000/chat';
-
-let socket: Socket | null = null;
-
-export const getSocket = () => {
-  const token = Cookies.get('authToken');
-  if (!socket) {
-    socket = io(SOCKET_URL, {
-      autoConnect: false,
-      transports: ['websocket'],
-      auth: { token },
-    });
-  } else {
-    socket.auth = { token };
-  }
-  return socket;
-};
 
 export default function ChatPage() {
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
